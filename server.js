@@ -1,21 +1,22 @@
 'use strict';
 
+var dotenv = require('dotenv').config();
 var express = require('express');
 var http = require('http');
 var app = express();
 var bodyParser = require('body-parser');
-var multer = require('multer');
 
 var nodemailer = require('nodemailer');
 var mg = require('nodemailer-mailgun-transport');
 
+
 // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
 var auth = {
   auth: {
-    api_key: 'key-eabf6a6b00d0805658ab06e9f10e30ec',
+    api_key: process.env.MG_KEY,
     domain: 'mg.testophotography.com'
   }
-}
+};
 
 var nodemailerMailgun = nodemailer.createTransport(mg(auth));
 
