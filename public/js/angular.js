@@ -11,17 +11,38 @@ app.config(function($routeProvider, $locationProvider) {
     }).otherwise({
         redirectTo: '/'
     });
-})
+});
 
 
 app.controller('contactController', function($scope, $http) {
-    $scope.sub = function($scope) {
-    $http.post('/contact', $scope.formData).
-    success(function(data) {
-        console.log("posted success")
-        }).
-    error(function(data) {
-        console.error("posted failed")
-        })
-    }}
-)
+   $scope.submit = function(){
+       var data = {
+           name: $scope.name,
+           email: $scope.email,
+           mobile:$scope.mobile,
+           subject:$scope.subject,
+           message:$scope.message
+       };
+    $http.post('/contact/', data).success(function(response) {
+        console.log("Success");
+    }, function(response) {
+        console.log("Something went wrong");
+    });
+   };
+    // $http({
+    //       method  : 'POST',
+    //       url     : '/contact',
+    //       data    : $scope.formData,
+    //       headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+    //      }).success(function(data) {
+    //         if (data.errors) {
+    //           // Showing errors.
+    //           $scope.errorName = data.errors.name;
+    //           $scope.errorUserName = data.errors.username;
+    //           $scope.errorEmail = data.errors.email;
+    //         } else {
+    //           $scope.message = data.message;
+    //         }
+    // }
+// );
+});
